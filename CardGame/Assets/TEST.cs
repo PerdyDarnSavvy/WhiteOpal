@@ -5,7 +5,7 @@ using UnityEngine;
 public class TEST : MonoBehaviour {
 
 	private int health = 100;
-	private int damage = 10;
+	private int damage = 1;
 	
 	private int DamageHero (int damage) {
 	
