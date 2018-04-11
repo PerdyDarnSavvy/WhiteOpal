@@ -1,16 +1,15 @@
 public class Health : Resource {
+    private int Amount { get; set; }
 
-    private float Amount { get; set; }
-
-    public Health(float amount) {
+    public Health(int amount) {
         this.Amount = amount;
     }
 
-    public override float GetAmount() {
+    public override int GetAmount() {
         return Amount;
     }
 
-    public override void SetAmount(float amount) {
+    public override void SetAmount(int amount) {
         this.Amount = amount;
     }
 }

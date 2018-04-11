@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
 
-	Health Health { get; set; }
+	private Health HP { get; set; }
 
 	// List<Card> Deck { get; set; }
 
 	// Use this for initialization
 	public void Start () {
-		Health = new Health(100);
+		this.HP = new Health(100);
 	}
 	
 	// Update is called once per frame

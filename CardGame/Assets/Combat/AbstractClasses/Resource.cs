@@ -1,6 +1,6 @@
 public abstract class Resource {
 
-    abstract public float GetAmount();
+    abstract public int GetAmount();
 
-    abstract public void SetAmount(float amount);
+    abstract public void SetAmount(int amount);
 }
