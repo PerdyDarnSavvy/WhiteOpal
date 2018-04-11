@@ -1,6 +1,9 @@
-public abstract class Resource {
 
-    abstract public int GetAmount();
+namespace CardGame.Abstract {
+    public abstract class Resource {
 
-    abstract public void SetAmount(int amount);
+        abstract public int GetAmount();
+
+        abstract public void SetAmount(int amount);
+    }
 }
