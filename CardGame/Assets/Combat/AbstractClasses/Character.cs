@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CardGame.Abstract;
+using CardGame.Resources;
 
-public abstract class Character : MonoBehaviour {
+namespace CardGame.Abstract {
+	public abstract class Character : MonoBehaviour {
 
-	private Health HP { get; set; }
+		private Health HP { get; set; }
 
-	// List<Card> Deck { get; set; }
+		// List<Card> Deck { get; set; }
 
-	// Use this for initialization
-	public void Start () {
-		this.HP = new Health(100);
-	}
-	
-	// Update is called once per frame
-	public void Update () {
+		// Use this for initialization
+		public void Start () {
+			this.HP = new Health(100);
+		}
 		
-	}
+		// Update is called once per frame
+		public void Update () {
+			
+		}
 
-	abstract public void CastCard();
+		abstract public void CastCard();
+	}
 }
