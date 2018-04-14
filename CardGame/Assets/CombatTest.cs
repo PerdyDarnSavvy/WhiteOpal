@@ -16,10 +16,9 @@ public class CombatTest : MonoBehaviour {
 		player = new Warrior();
 		target = new Warrior();
 
-		var testStrike = new Strike();
+		player.CastCard(new ViciousVigor(), target);
+		player.CastCard(new ViciousVigor(), target);
 
-		player.CastCard(testStrike, target);
-		
 		Debug.Log("End");
 	}
 	

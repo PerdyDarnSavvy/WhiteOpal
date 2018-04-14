@@ -4,11 +4,12 @@ using CardGame.Resources;
 namespace CardGame.Classes {
 	public class Warrior : Character {
 
-		private Stamina Stamina { get;set; }
+		public Stamina Stamina { get;set; }
 
 		public Warrior() : base() {
 			UnityEngine.Debug.Log("Warrior()");
 			Stamina = new Stamina(100, 100);
+			Stamina.Name = "Stamina";
 		}
 
 		public override Resource GetResource(){

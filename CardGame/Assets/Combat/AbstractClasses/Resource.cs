@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Abstract {
     public abstract class Resource {
+        public string Name {get;set;}
 
         private int Amount { get; set; }
         private int MaxAmount { get; set; }
@@ -53,6 +54,8 @@ namespace CardGame.Abstract {
 
         // 'above' is false if checking Resource is below threshold, otherwise true
         public bool MeetsThreshold(int threshold, bool isPercent, bool above, bool allowEqual) {
+            UnityEngine.Debug.Log("threshold: " + threshold);
+            UnityEngine.Debug.Log("Amount: " + Amount);
             if(!isPercent)
                 return (above && Amount > threshold) || (!above && Amount < threshold) || (allowEqual && Amount == threshold);           
             else {

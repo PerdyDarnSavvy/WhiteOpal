@@ -10,7 +10,6 @@ namespace CardGame.Actions {
         }
 
         public void execute(Character target, Character source) {
-			UnityEngine.Debug.Log("ToDamage Execute()");
             target.ApplyDamage(Amount);
         }
     }

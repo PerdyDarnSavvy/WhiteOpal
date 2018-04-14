@@ -13,6 +13,7 @@ namespace CardGame.Abstract {
 
 		public Character() {
 			HP = new Health(100, 100);
+			HP.Name = "Health";
 		}
 
 		public void ApplyDamage(int amount) {

@@ -8,7 +8,7 @@ namespace CardGame.Cards {
         public override int Cost { get; set; }
         public override List<iAction> Actions { get; set; }
         public ViciousVigor() {
-            Cost = 1;
+            Cost = 40;
 
             Actions = new List<iAction>();
             Actions.Add(new ToDamageWithThreshold(6, 50, true, false, true));

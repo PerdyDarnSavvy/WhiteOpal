@@ -18,7 +18,7 @@ namespace CardGame.Actions {
         }
 
         public void execute(Character target, Character source) {
-            Resource resource = target.GetResource();
+            Resource resource = source.GetResource();
 
             if(resource.MeetsThreshold(Threshold, IsPercent, Above, Equal)) {
                 target.ApplyDamage(Amount);
