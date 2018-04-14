@@ -7,7 +7,7 @@ namespace CardGame.Cards {
     public class Strike : Card {
         public override int Cost { get; set; }
         public override List<iAction> Actions { get; set; }
-        public Strike() {
+        public Strike() : base("Strike") {
             Cost = 10;
 
             Actions = new List<iAction>();

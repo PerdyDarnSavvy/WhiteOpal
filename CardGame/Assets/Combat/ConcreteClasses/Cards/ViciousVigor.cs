@@ -7,7 +7,7 @@ namespace CardGame.Cards {
     public class ViciousVigor : Card {
         public override int Cost { get; set; }
         public override List<iAction> Actions { get; set; }
-        public ViciousVigor() {
+        public ViciousVigor() : base("Vicious Vigor") {
             Cost = 40;
 
             Actions = new List<iAction>();

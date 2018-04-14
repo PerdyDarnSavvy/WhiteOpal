@@ -4,9 +4,9 @@ using CardGame.Resources;
 namespace CardGame.Classes {
 	public class Warrior : Character {
 
-		public Stamina Stamina { get;set; }
+		public Stamina Stamina { get; set; }
 
-		public Warrior() : base() {
+		public Warrior() : base("Warrior") {
 			Stamina = new Stamina(100, 100);
 		}
 
@@ -15,6 +15,7 @@ namespace CardGame.Classes {
 		}
 
 		public override void CastCard(Card card, Character target) {
+			UnityEngine.Debug.Log(this.Name + " casts " + card.Name + ", using " + card.Cost + " " + Stamina.Name);
 			if(Stamina.CanCostBePaid(card.Cost)) {
 				Stamina.PayCost(card.Cost);
 

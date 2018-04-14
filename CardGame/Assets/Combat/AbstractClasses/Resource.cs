@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Abstract {
     public abstract class Resource {
-        public string Name {get;set;}
+        public string Name { get; set; }
 
         private int Amount { get; set; }
         private int MaxAmount { get; set; }

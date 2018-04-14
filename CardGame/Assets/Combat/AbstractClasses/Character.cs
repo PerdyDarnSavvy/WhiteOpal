@@ -7,11 +7,14 @@ using CardGame.Resources;
 namespace CardGame.Abstract {
 	public abstract class Character {
 
+		public string Name { get; set; }
+
 		public Health HP { get; set; }
 
 		// List<Card> Deck { get; set; }
 
-		public Character() {
+		public Character(string name) {
+			Name = name;
 			HP = new Health(100, 100);
 		}
 
