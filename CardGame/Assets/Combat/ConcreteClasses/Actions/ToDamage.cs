@@ -9,8 +9,9 @@ namespace CardGame.Actions {
             this.Amount = amount;
         }
 
-        public void execute(Character Target, Character Source) {
-            //Target.applyDamage(amount, Source);
+        public void execute(Character target, Character source) {
+			UnityEngine.Debug.Log("ToDamage Execute()");
+            target.ApplyDamage(Amount);
         }
     }
 }

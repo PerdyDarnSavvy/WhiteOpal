@@ -7,6 +7,16 @@ namespace CardGame.Abstract {
         private int Amount { get; set; }
         private int MaxAmount { get; set; }
 
+        public Resource(int? amount, int? maxAmount) {
+            if(amount.HasValue)
+                SetAmount(amount.Value);
+            
+            if(maxAmount.HasValue)
+                SetMaxAmount(maxAmount.Value);
+            else if(amount.HasValue)
+                SetMaxAmount(amount.Value);
+        }
+
         public int GetAmount() {
             return Amount;
         }

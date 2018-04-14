@@ -5,25 +5,20 @@ using CardGame.Abstract;
 using CardGame.Resources;
 
 namespace CardGame.Abstract {
-	public abstract class Character : MonoBehaviour {
+	public abstract class Character {
 
 		public Health HP { get; set; }
 
 		// List<Card> Deck { get; set; }
 
 		public Character() {
-			HP = new Health(100);
-		}
-
-		public abstract void Start ();
-		
-		// Update is called once per frame
-		public void Update () {
-			
+			HP = new Health(100, 100);
 		}
 
 		public void ApplyDamage(int amount) {
 			HP.DepleteResource(amount);
+			UnityEngine.Debug.Log("ApplyDamage()");
+			UnityEngine.Debug.Log("Current HP: " + HP.GetAmount() + " / " + HP.GetMaxAmount());
 		}
 
 		abstract public Resource GetResource();
