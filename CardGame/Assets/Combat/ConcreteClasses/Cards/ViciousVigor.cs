@@ -4,14 +4,14 @@ using CardGame.Interfaces;
 using CardGame.Actions;
 
 namespace CardGame.Cards {
-    public class Strike : Card {
+    public class ViciousVigor : Card {
         public override int Cost { get; set; }
         public override List<iAction> Actions { get; set; }
-        public Strike() : base("Strike") {
-            Cost = 10;
+        public ViciousVigor() : base("Vicious Vigor") {
+            Cost = 40;
 
             Actions = new List<iAction>();
-            Actions.Add(new ToDamage(6));
+            Actions.Add(new ToDamageWithThreshold(6, 50, true, false, true));
         }
     }
 }
