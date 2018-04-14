@@ -7,20 +7,27 @@ using CardGame.Resources;
 namespace CardGame.Abstract {
 	public abstract class Character : MonoBehaviour {
 
-		private Health HP { get; set; }
+		public Health HP { get; set; }
 
 		// List<Card> Deck { get; set; }
 
-		// Use this for initialization
-		public void Start () {
-			this.HP = new Health(100);
+		public Character() {
+			HP = new Health(100);
 		}
+
+		public abstract void Start ();
 		
 		// Update is called once per frame
 		public void Update () {
 			
 		}
 
-		abstract public void CastCard();
+		public void ApplyDamage(int amount) {
+			HP.DepleteResource(amount);
+		}
+
+		abstract public Resource GetResource();
+
+		abstract public void CastCard(Card card, Character target);
 	}
 }
