@@ -8,14 +8,10 @@ namespace CardGame.Abstract {
         private int Amount { get; set; }
         private int MaxAmount { get; set; }
 
-        public Resource(int? amount, int? maxAmount) {
-            if(amount.HasValue)
-                SetAmount(amount.Value);
-            
-            if(maxAmount.HasValue)
-                SetMaxAmount(maxAmount.Value);
-            else if(amount.HasValue)
-                SetMaxAmount(amount.Value);
+        public Resource(int amount, int maxAmount, string name) {
+            Name = name;
+            SetAmount(amount);
+            SetMaxAmount(maxAmount);
         }
 
         public int GetAmount() {
@@ -54,8 +50,6 @@ namespace CardGame.Abstract {
 
         // 'above' is false if checking Resource is below threshold, otherwise true
         public bool MeetsThreshold(int threshold, bool isPercent, bool above, bool allowEqual) {
-            UnityEngine.Debug.Log("threshold: " + threshold);
-            UnityEngine.Debug.Log("Amount: " + Amount);
             if(!isPercent)
                 return (above && Amount > threshold) || (!above && Amount < threshold) || (allowEqual && Amount == threshold);           
             else {

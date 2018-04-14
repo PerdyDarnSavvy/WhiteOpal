@@ -13,13 +13,10 @@ namespace CardGame.Abstract {
 
 		public Character() {
 			HP = new Health(100, 100);
-			HP.Name = "Health";
 		}
 
 		public void ApplyDamage(int amount) {
 			HP.DepleteResource(amount);
-			UnityEngine.Debug.Log("ApplyDamage()");
-			UnityEngine.Debug.Log("Current HP: " + HP.GetAmount() + " / " + HP.GetMaxAmount());
 		}
 
 		abstract public Resource GetResource();
