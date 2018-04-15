@@ -6,8 +6,9 @@ namespace CardGame.Abstract {
         public string Name { get; set; }
         public abstract int Cost { get; set; }
 
-        public Card(string name) {
+        public Card(string name, int cost) {
             Name = name;
+            Cost = cost;
         }
 
         public abstract List<iAction> Actions { get; set; }

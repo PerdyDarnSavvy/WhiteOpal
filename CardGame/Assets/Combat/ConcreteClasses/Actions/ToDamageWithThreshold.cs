@@ -3,14 +3,14 @@ using CardGame.Interfaces;
 
 namespace CardGame.Actions {
     public class ToDamageWithThreshold : iAction {
-        private int Amount { get; set; }
+        private int DamageAmount { get; set; }
         private int Threshold { get; set; }
         private bool IsPercent { get; set; }
         private bool Above { get; set; }
         private bool Equal { get; set; }
 
         public ToDamageWithThreshold(int amount, int threshold, bool isPercent, bool above, bool equal) {
-            Amount = amount;
+            DamageAmount = amount;
             Threshold = threshold;
             IsPercent = isPercent;
             Above = above;
@@ -21,7 +21,7 @@ namespace CardGame.Actions {
             Resource resource = source.GetResource();
 
             if(resource.MeetsThreshold(Threshold, IsPercent, Above, Equal)) {
-                target.ApplyDamage(Amount);
+                target.ApplyDamage(DamageAmount);
             }
         }
     }
