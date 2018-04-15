@@ -14,6 +14,12 @@ public class TEST : MonoBehaviour {
 		
 	}	
 	
+	private bool isDead () {
+
+		return true;
+
+	}
+
 	// Use this for initialization
 	void Start () {
 		
