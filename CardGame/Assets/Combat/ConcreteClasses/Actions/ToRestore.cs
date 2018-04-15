@@ -2,11 +2,11 @@ using CardGame.Abstract;
 using CardGame.Interfaces;
 
 namespace CardGame.Actions {
-    public class RestoreResource : iAction {
+    public class ToRestore : iAction {
         private int RestoreAmount { get; set; }
         private int CurrentAmount { get; set; }
         private int MaxAmount {get; set; }
-        public RestoreResource(int amount) {
+        public ToRestore(int amount) {
             this.RestoreAmount = amount;
         }
 
