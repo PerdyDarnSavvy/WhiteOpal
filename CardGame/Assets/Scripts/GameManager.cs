@@ -3,40 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
 
 	[SerializeField] private GameObject playerSprite;
 	[SerializeField] private GameObject enemySprite;
 	[SerializeField] private Image HPBar;
 	[SerializeField] private Canvas canvas;
 	[SerializeField] private Text textPrefab;
-	[SerializeField] private Image[] HPTabs;
+	public List<Actor> PlayerList = new List<Actor>();
+	public List<Actor> EnemyList = new List<Actor>();
+	public List<Actor> AllyList = new List<Actor>();
 	//[SerializeField] private GameObject 
 
-	// Use this for initialization
 	void Start () {
 		GameObject newEnemy = Instantiate(enemySprite) as GameObject;
+		Actor enemy1 = new Actor(ActorType.enemy);
 		GameObject newPlayer = Instantiate(playerSprite) as GameObject;
+		Actor player1 = new Actor(ActorType.player);
 		Canvas playCanvas = Instantiate(canvas) as Canvas;
-		newEnemy.transform.position = new Vector2(5, 2);
+		
 		playCanvas.transform.position = new Vector2(newPlayer.transform.localPosition.x, newPlayer.transform.position.y);
 		MakeHPBars(playCanvas, newPlayer, newEnemy);
-		//GameObject newPlayerHP = Instantiate(playerHP) as GameObject;
-		//HPLabeler();		
-		//newEnemy.rectTransform.SetParent(playCanvas, false);
-
+		//hideTab(11);
 	}
 
-	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
-	void HPLabeler (Canvas canvas) {
-		Text label = Instantiate<Text>(textPrefab);
-        label.rectTransform.SetParent(canvas.transform, false);
-        label.rectTransform.anchoredPosition = new Vector2(transform.localPosition.x, transform.localPosition.z);
-        label.text = "100";
+	public void RegisterActor(Actor actor) {
+		if (actor.Type == ActorType.minion) {
+			AllyList.Add(actor);
+		} else if (actor.Type == ActorType.player) {
+			PlayerList.Add(actor);
+		} else {
+			EnemyList.Add(actor);
+		}
+		
 	}
 
 	private void MakeHPBars (Canvas canvas, GameObject player, GameObject enemy) {
@@ -46,7 +49,10 @@ public class GameManager : MonoBehaviour {
         PlayerHP.rectTransform.position = new Vector2(player.transform.localPosition.x, (player.transform.localPosition.y - 1.75f));
 		EnemyHP.rectTransform.SetParent(canvas.transform, false);
         EnemyHP.rectTransform.position = new Vector2(enemy.transform.localPosition.x, (enemy.transform.localPosition.y - 1.75f));
-		
+	}
+
+	private void hideTab(int i) {
+
 	}
 
 }
