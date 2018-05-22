@@ -12,7 +12,6 @@ public enum ActorType {
 
 public class Actor : MonoBehaviour {
 	
-	[SerializeField] 
 	public PercentScale HPBar;
 	private ActorType type;
 	public Character characterStats { get; set; }
