@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 13c1c7bf3d74c384f9a5ef1ae5133210
+timeCreated: 1525733948
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerSprite: {instanceID: 0}
+  - enemySprite: {instanceID: 0}
+  - HPBar: {fileID: 114228324264580616, guid: 923089304f780984387f10316afc2180, type: 2}
+  - canvas: {fileID: 223644444658449106, guid: 203db38bcd6d8e44291eba69e5edc579, type: 2}
+  - textPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
