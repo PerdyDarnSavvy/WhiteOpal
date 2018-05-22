@@ -25,5 +25,7 @@ namespace CardGame.Abstract {
 		abstract public Resource GetResource();
 
 		abstract public void CastCard(Card card, Character target);
+
+		abstract public List<Resource> GetAllResources();
 	}
 }

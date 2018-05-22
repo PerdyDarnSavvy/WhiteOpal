@@ -1,4 +1,6 @@
-﻿using CardGame.Abstract;
+﻿using System.Collections;
+using System.Collections.Generic;
+using CardGame.Abstract;
 using CardGame.Resources;
 
 namespace CardGame.Classes {
@@ -12,6 +14,13 @@ namespace CardGame.Classes {
 
 		public override Resource GetResource(){
 			return Stamina;
+		}
+
+		public override List<Resource> GetAllResources() {
+			List<Resource> resources = new List<Resource>();
+			resources.Add(this.HP);
+			resources.Add(this.Stamina);
+			return resources;
 		}
 
 		public override void CastCard(Card card, Character target) {

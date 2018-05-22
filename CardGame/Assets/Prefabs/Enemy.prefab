@@ -19,10 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4877529655259880}
-  - component: {fileID: 114548454534082600}
   - component: {fileID: 212697780649413676}
-  - component: {fileID: 114432218076381434}
-  - component: {fileID: 114323043372864062}
   - component: {fileID: 114066771046488278}
   m_Layer: 0
   m_Name: Enemy
@@ -55,39 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30fa91a56dec0414aaa85729d20780fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114323043372864062
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1814410073562688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463d64b5793c1f04a9b0179e18948e76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114432218076381434
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1814410073562688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607d855085545474d9a9a5be5782143d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114548454534082600
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1814410073562688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80faa9e881cb134dac3352f9d8ce16f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  HPBar: {fileID: 114699902385043948, guid: 0d165f8b83b65bf4eab537b7aa10f787, type: 2}
 --- !u!212 &212697780649413676
 SpriteRenderer:
   m_ObjectHideFlags: 1
