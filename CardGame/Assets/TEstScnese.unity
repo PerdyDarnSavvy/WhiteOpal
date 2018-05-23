@@ -321,9 +321,6 @@ MonoBehaviour:
     type: 2}
   HPBar: {fileID: 114699902385043948, guid: 0d165f8b83b65bf4eab537b7aa10f787, type: 2}
   canvas: {fileID: 574002482}
-  PlayerList: []
-  EnemyList: []
-  AllyList: []
 --- !u!81 &1964092387
 AudioListener:
   m_ObjectHideFlags: 0
