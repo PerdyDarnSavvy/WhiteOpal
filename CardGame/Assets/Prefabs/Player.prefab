@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30fa91a56dec0414aaa85729d20780fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HPBar: {fileID: 114699902385043948, guid: 0d165f8b83b65bf4eab537b7aa10f787, type: 2}
+  PercentPrefab: {fileID: 114699902385043948, guid: 0d165f8b83b65bf4eab537b7aa10f787,
+    type: 2}
 --- !u!212 &212386882392006412
 SpriteRenderer:
   m_ObjectHideFlags: 1

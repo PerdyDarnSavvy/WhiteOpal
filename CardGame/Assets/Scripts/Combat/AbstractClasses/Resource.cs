@@ -4,12 +4,15 @@ using System.Collections.Generic;
 namespace CardGame.Abstract {
     public abstract class Resource {
         public string Name { get; set; }
-
+        public int Type;
+        
         private int Amount { get; set; }
         private int MaxAmount { get; set; }
+        
 
-        public Resource(int amount, int maxAmount, string name) {
+        public Resource(int amount, int maxAmount, string name, int type) {
             Name = name;
+            Type = type;
             SetAmount(amount);
             SetMaxAmount(maxAmount);
         }
