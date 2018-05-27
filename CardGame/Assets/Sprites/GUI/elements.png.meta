@@ -8,6 +8,7 @@ TextureImporter:
     21300002: HealthBarBack
     21300004: HealthBarFront
     21300006: HP_Bar
+    21300008: Strike
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -144,6 +145,20 @@ TextureImporter:
         y: 1630
         width: 285
         height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Strike
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 474
+        width: 174
+        height: 213
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
