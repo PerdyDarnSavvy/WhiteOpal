@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CardGame.Cards;
+using CardGame.UI;
 
 public class GameManager : Singleton<GameManager> {
 

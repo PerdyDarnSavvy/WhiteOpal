@@ -2,52 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PercentScale : MonoBehaviour {
+namespace CardGame.UI{
 
-	[SerializeField]
-	private int Percent;
-	private Transform VariableBar { get; set; }
+	public class PercentScale : MonoBehaviour {
 
-	// Use this for initialization
-	void Awake() {
-		VariableBar = transform.Find("Container");
-		UpdateScale(100);
-	}
+		[SerializeField]
+		private int Percent;
+		private Transform VariableBar { get; set; }
 
-	public void UpdateScale(int? newPercent) {
-		if(newPercent.HasValue) {
-			Percent = newPercent.Value;
+		// Use this for initialization
+		void Awake() {
+			VariableBar = transform.Find("Container");
+			UpdateScale(100);
 		}
 
-		if(VariableBar != null) {
-			float newScale = GetNewScale();
-			if(VariableBar.localScale.x != newScale) {
-				VariableBar.localScale = new Vector3(newScale, VariableBar.localScale.y, VariableBar.localScale.z);
+		public void UpdateScale(int? newPercent) {
+			if(newPercent.HasValue) {
+				Percent = newPercent.Value;
+			}
+
+			if(VariableBar != null) {
+				float newScale = GetNewScale();
+				if(VariableBar.localScale.x != newScale) {
+					VariableBar.localScale = new Vector3(newScale, VariableBar.localScale.y, VariableBar.localScale.z);
+				}
 			}
 		}
-	}
 
-	private float GetNewScale() {
-		return ((float)Percent / 100f);
-	}
-
-	public void SetType(int type) {
-		var BarFront = VariableBar.Find("BarFront");
-		if (BarFront != null) {
-			var BarSprite = BarFront.GetComponent<SpriteRenderer>();
-			switch(type) {
-				case 1:
-					BarSprite.color = Color.red;
-					break;
-				case 2:
-					BarSprite.color = Color.green;
-					break;
-				default:
-					BarSprite.color = Color.blue;
-					break;
-			}
-			Debug.Log(BarSprite.color);
+		private float GetNewScale() {
+			return ((float)Percent / 100f);
 		}
-		Debug.Log("Made it here!");
+
+		public void SetType(int type) {
+			var BarFront = VariableBar.Find("BarFront");
+			if (BarFront != null) {
+				var BarSprite = BarFront.GetComponent<SpriteRenderer>();
+				switch(type) {
+					case 1:
+						BarSprite.color = Color.red;
+						break;
+					case 2:
+						BarSprite.color = Color.green;
+						break;
+					default:
+						BarSprite.color = Color.blue;
+						break;
+				}
+			}
+		}
 	}
 }

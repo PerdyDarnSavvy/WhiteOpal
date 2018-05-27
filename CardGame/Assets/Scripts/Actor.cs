@@ -4,6 +4,7 @@ using UnityEngine;
 using CardGame.Abstract;
 using CardGame.Classes;
 using CardGame.Cards;
+using CardGame.UI;
 using UnityEngine.UI;
 
 public enum ActorType {
@@ -12,10 +13,11 @@ public enum ActorType {
 
 public class Actor : MonoBehaviour {
 	
-	public PercentScale HPBar;
+	public PercentScale PercentPrefab;
 	private ActorType type;
 	public Character characterStats { get; set; }
 	private PercentScale healthBar { get; set; }
+	private List<ResourceUI> ourResources;
 	//private List<> OtherBars { get; set; }
 
 	public Actor (ActorType thing) {
@@ -24,42 +26,48 @@ public class Actor : MonoBehaviour {
 
 	void Awake () {
 		characterStats = new Warrior();
-		MakeResourceBar(characterStats.HP, 0);
+		ourResources = new List<ResourceUI>();
 		MakeResourceBars();
 	}
 
-	void LateUpdate () {
-		updateHealthBar();
+	void Update () {
+		//updateHealthBar();
+		foreach (var resourceUI in ourResources){
+			resourceUI.updateValue();
+		}
 	}
 	
-	private void MakeResourceBar (Resource resouce, int counter) {
-		healthBar = Instantiate(HPBar) as PercentScale;
-		healthBar.transform.SetParent(GameManager.Instance.canvas.transform, false);
-        healthBar.transform.position = new Vector2(transform.localPosition.x, (transform.localPosition.y - 1.75f - (counter * 0.1f)));
-		var VariableBar = healthBar.transform.Find("Container");
-		var BarFront = VariableBar.Find("BarFront");
-		var BarSprite = BarFront.GetComponent<SpriteRenderer>();
-		BarSprite.sortingLayerID -= counter;
-		healthBar.SetType(counter);
-		//var otherBar = Instantiate(HPBar) as PercentScale;
-		//otherBar.transform.SetParent(GameManager.Instance.canvas.transform, false);
-		//otherBar.transform.position = new Vector2(transform.localPosition.x, (transform.localPosition.y - 1.85f));
-		//otherBar.SetType(7);
+	private void MakeResourceUI (Resource myResource, float counter) {
+		var newPercentScale = Instantiate(PercentPrefab) as PercentScale;
+		ourResources.Add(new ResourceUI(myResource, this.transform, newPercentScale, counter));
 	}
 
-	private void updateHealthBar() {
-		int newPercent = (int)Mathf.Round(((float)characterStats.HP.GetAmount() / (float)characterStats.HP.GetMaxAmount()) * 100f);
-		healthBar.UpdateScale(newPercent);
-	}
+	// private void MakeResourceBar (Resource resouce, int counter) {
 
-	// Not yet used, but this will be the next step:
-	// We would use this so we can use the same logic to make a "Stamina" bar, and a "Health" bar
+	// 	var VariableBar = healthBar.transform.Find("Container");
+	// 	var BarFront = VariableBar.Find("BarFront");
+	// 	var BarSprite = BarFront.GetComponent<SpriteRenderer>();
+	// 	BarSprite.sortingLayerID -= counter;
+	// 	healthBar.SetType(counter);
+	// 	//var otherBar = Instantiate(HPBar) as PercentScale;
+	// 	//otherBar.transform.SetParent(GameManager.Instance.canvas.transform, false);
+	// 	//otherBar.transform.position = new Vector2(transform.localPosition.x, (transform.localPosition.y - 1.85f));
+	// 	//otherBar.SetType(7);
+	// }
+
+	// private void updateHealthBar() {
+	// 	int newPercent = (int)Mathf.Round(((float)characterStats.HP.GetAmount() / (float)characterStats.HP.GetMaxAmount()) * 100f);
+	// 	healthBar.UpdateScale(newPercent);
+	// }
+
+	// // Not yet used, but this will be the next step:
+	// // We would use this so we can use the same logic to make a "Stamina" bar, and a "Health" bar
 	private void MakeResourceBars() {
 		List<Resource> resources = characterStats.GetAllResources();
-		int counter = 1;
+		float counter = 1.75f;
 		foreach(var resource in resources) {
-			MakeResourceBar(resource, counter);
-			counter++;
+			MakeResourceUI(resource, counter);
+			counter += 0.4f;
 		}
 	}
 }

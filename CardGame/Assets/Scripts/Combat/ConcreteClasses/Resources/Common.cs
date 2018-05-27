@@ -4,13 +4,13 @@ namespace CardGame.Resources {
 
     // These are so empty because the class it inherits, Resource, has all the basic functions
     public class Health : Resource {
-        public Health(int amount, int maxAmount) : base(amount, maxAmount, "Health") {
+        public Health(int amount, int maxAmount) : base(amount, maxAmount, "Health", 1) {
 
         }
     }
 
     public class Stamina : Resource {
-        public Stamina(int amount, int maxAmount) : base(amount, maxAmount, "Stamina") {
+        public Stamina(int amount, int maxAmount) : base(amount, maxAmount, "Stamina", 2) {
             
         }
     }
