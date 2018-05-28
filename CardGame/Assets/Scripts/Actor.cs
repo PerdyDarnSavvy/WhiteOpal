@@ -18,6 +18,7 @@ public class Actor : MonoBehaviour {
 	public Character characterStats { get; set; }
 	private PercentScale healthBar { get; set; }
 	private List<ResourceUI> ourResources;
+	private CardManager CardManager;
 	//private List<> OtherBars { get; set; }
 
 	public Actor (ActorType thing) {
@@ -28,6 +29,8 @@ public class Actor : MonoBehaviour {
 		characterStats = new Warrior();
 		ourResources = new List<ResourceUI>();
 		MakeResourceBars();
+		Debug.Log("Starting Card Manager . . .");
+		CardManager = new CardManager();
 	}
 
 	void Update () {
