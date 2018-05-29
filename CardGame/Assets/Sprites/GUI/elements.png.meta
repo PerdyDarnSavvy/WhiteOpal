@@ -9,6 +9,7 @@ TextureImporter:
     21300004: HealthBarFront
     21300006: HP_Bar
     21300008: Barman
+    21300010: elements_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -159,6 +160,20 @@ TextureImporter:
         y: 1536
         width: 285
         height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elements_1
+      rect:
+        serializedVersion: 2
+        x: 2013
+        y: 601
+        width: 172
+        height: 255
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

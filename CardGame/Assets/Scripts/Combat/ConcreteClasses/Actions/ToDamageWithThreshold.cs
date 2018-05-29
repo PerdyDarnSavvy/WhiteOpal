@@ -9,18 +9,25 @@ namespace CardGame.Actions {
         private bool Above { get; set; }
         private bool Equal { get; set; }
 
-        public ToDamageWithThreshold(int amount, int threshold, bool isPercent, bool above, bool equal) {
+        // Optional - If provided, the threshold check will add this to the current resource
+        // Used for "Check before cast amount" threshold checks
+        // Otherwise, the threshold check will always be comparing a resource "post-cast" of this card
+        private int Adjustment { get; set; }
+
+
+        public ToDamageWithThreshold(int amount, int threshold, bool isPercent, bool above, bool equal, int adjustment = 0) {
             DamageAmount = amount;
             Threshold = threshold;
             IsPercent = isPercent;
             Above = above;
             Equal = equal;
+            Adjustment = adjustment;
         }
 
         public void execute(Character target, Character source) {
             Resource resource = source.GetResource();
 
-            if(resource.MeetsThreshold(Threshold, IsPercent, Above, Equal)) {
+            if(resource.MeetsThreshold(Threshold, IsPercent, Above, Equal, Adjustment)) {
                 target.ApplyDamage(DamageAmount);
             }
         }

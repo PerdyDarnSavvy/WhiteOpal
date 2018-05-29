@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CardGame.Abstract {
     public abstract class Resource {
@@ -23,8 +24,8 @@ namespace CardGame.Abstract {
         public int GetMaxAmount() {
             return MaxAmount;
         }
-        public float GetCurrentPercent() {
-            return (float)Amount / (float)MaxAmount;
+        public float GetCurrentPercent(int adjustment = 0) {
+            return (float)(Amount + adjustment) / (float)MaxAmount;
         }
 
         public void SetMaxAmount(int maxAmount) {
@@ -52,13 +53,15 @@ namespace CardGame.Abstract {
         }
 
         // 'above' is false if checking Resource is below threshold, otherwise true
-        public bool MeetsThreshold(int threshold, bool isPercent, bool above, bool allowEqual) {
+        public bool MeetsThreshold(int threshold, bool isPercent, bool above, bool allowEqual, int adjustment = 0) {
+            var outcome = false;
             if(!isPercent)
-                return (above && Amount > threshold) || (!above && Amount < threshold) || (allowEqual && Amount == threshold);           
+                outcome = (above && Amount > threshold) || (!above && Amount < threshold) || (allowEqual && Amount == threshold);           
             else {
-                float currentPercent = GetCurrentPercent();
-                return (above && currentPercent > threshold) || (!above && currentPercent < threshold) || (allowEqual && currentPercent == threshold);
+                float currentPercent = GetCurrentPercent(adjustment) * 100f;
+                outcome = (above && currentPercent > threshold) || (!above && currentPercent < (float)threshold) || (allowEqual && currentPercent == threshold);
             }
+            return outcome;
         }
     }
 }

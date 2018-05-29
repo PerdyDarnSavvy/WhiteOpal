@@ -18,8 +18,43 @@ public class CardManager {
 	private int maxHandSize;
 	
 	public CardManager(int maxHandSize = -1) {
-		Initialize();
 		SetMaxHandSize(maxHandSize);
+		Initialize();
+	}
+	
+	public void Initialize() {
+		Deck = new CardZone();
+		Hand = new CardZone();
+		Discard = new CardZone();
+
+		DemoInit();
+	}
+
+	public void DemoInit() {
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new ViciousVigor());
+		Deck.AddCard(new ViciousVigor());
+		Deck.AddCard(new Respite());
+		Deck.AddCard(new Respite());
+		Deck.AddCard(new Respite());
+
+		Shuffle(Deck);
+
+		DrawHand();
+	}
+
+	public bool CastCard(Card card, Character caster, Character target) {
+		var takenCard = card;// Hand.ConfirmExistsAndTake(card);
+		if(takenCard != null) {
+			caster.CastCard(card, target);
+			Discard.AddCard(takenCard);
+			return true;
+		}
+
+		return false;
 	}
 
 	public void SetMaxHandSize(int newSize) {
@@ -27,12 +62,6 @@ public class CardManager {
 			newSize = defaultMaxHandSize;
 		}
 		maxHandSize = newSize;
-	}
-	
-	public void Initialize() {
-		Deck = new CardZone();
-		Hand = new CardZone();
-		Discard = new CardZone();
 	}
 
 	public void DrawHand() {
