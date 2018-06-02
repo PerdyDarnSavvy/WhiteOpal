@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CardGame.Abstract;
 using CardGame.Interfaces;
 
@@ -24,11 +25,13 @@ namespace CardGame.Actions {
             Adjustment = adjustment;
         }
 
-        public void execute(Character target, Character source) {
+        public void execute(List<Character> targets, Character source) {
             Resource resource = source.GetResource();
 
             if(resource.MeetsThreshold(Threshold, IsPercent, Above, Equal, Adjustment)) {
-                target.ApplyDamage(DamageAmount);
+                foreach(var target in targets) {
+                    target.ApplyDamage(DamageAmount);
+                }
             }
         }
     }

@@ -5,9 +5,8 @@ using CardGame.Actions;
 
 namespace CardGame.Cards {
     public class Respite : Card {
-        public override int Cost { get; set; }
         public override List<iAction> Actions { get; set; }
-        public Respite() : base("Respite", 0) {
+        public Respite() : base("Respite", 0, 0) {
             Actions = new List<iAction>();
             Actions.Add(new ToRestore(15));
         }

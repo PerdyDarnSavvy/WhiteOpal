@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using CardGame.Abstract;
 using CardGame.UI;
@@ -18,7 +19,7 @@ public class PlayerController {
 
     public PlayerSelectionState currentState { get; set; }
     public Card currentCardSelected { get; set; }
-    public Actor targetSelected { get; set; }
+    public List<Actor> targetsSelected { get; set; }
 
     public PlayerController(Actor playerActor, List<Actor> enemies, CardUI CardUIPrefab, TargetableOverlay TargetableOverlayPrefab) {
         Debug.Log("PlayerController");
@@ -28,36 +29,62 @@ public class PlayerController {
         Enemies = enemies;
         CreatePlayerUI();
         currentState = PlayerSelectionState.SelectCard;
+        targetsSelected = new List<Actor>();
     }
 
     public void CardClicked(CardUI cardUI) {
+        Debug.Log("CardClicked: " + cardUI.Card.Name);
         if (currentState == PlayerSelectionState.SelectCard) {
             if (currentCardSelected == cardUI.Card) {
                 currentCardSelected = null;
             } else {
                 currentCardSelected = cardUI.Card;
-                currentState = PlayerSelectionState.SelectTarget;
+                if(currentCardSelected.TargetsNeeded > 0) {
+                    currentState = PlayerSelectionState.SelectTarget;
+                } else if(currentCardSelected.TargetsNeeded == -1) {
+                    targetsSelected.AddRange(Enemies);
+                    Debug.Log("Card targets all enemies");
+                    CastCard();
+                } else {
+                    Debug.Log("Card doesnt need a target");
+                    CastCard();
+                }
             }
         }
     }
     
     public void TargetClicked(Actor target) {
         if (currentState == PlayerSelectionState.SelectTarget) {
-            if (targetSelected == target) {
-                targetSelected = null;
+            if (targetsSelected.IndexOf(target) >= 0) {
+                targetsSelected.Remove(target);
             } else {
-                targetSelected = target;
-                var cardWasCast = playerActor.CardManager.CastCard(currentCardSelected, playerActor.characterStats, targetSelected.characterStats);
-                if (cardWasCast) {
-                    currentCardSelected = null;
-                    targetSelected = null;
-                    currentState = PlayerSelectionState.SelectCard;
-                } else {
-                    Debug.Log("Card was unable to be cast");
-                    targetSelected = null;
-                    currentState = PlayerSelectionState.SelectTarget;
+                targetsSelected.Add(target);
+                if(targetsSelected.Count == currentCardSelected.TargetsNeeded) {
+                CastCard();
                 }
             }
+        }
+    }
+
+    public void CastCard() {
+        Debug.Log("CastCard: " + currentCardSelected.Name);
+        Debug.Log("Targets: " + targetsSelected.Count);
+        bool canCastCard = playerActor.characterStats.CanCastCard(currentCardSelected);
+        if (canCastCard) {
+            Debug.Log("Card can be cast");
+            bool cardWasCast = ActionManager.Instance.CastCard(currentCardSelected, playerActor, targetsSelected.Select(x => x.characterStats).ToList());
+            playerActor.CardManager.CastCardFromHand(currentCardSelected);
+
+            if (cardWasCast) {
+                Debug.Log("Card was cast");
+            } else {
+                Debug.Log("Card was unable to be cast");
+            }
+            currentCardSelected = null;
+            targetsSelected = new List<Actor>();
+            currentState = PlayerSelectionState.SelectCard;
+        } else {
+            Debug.Log("Card was unable to be cast");
         }
     }
 

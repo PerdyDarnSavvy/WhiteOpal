@@ -32,29 +32,13 @@ public class CardManager {
 
 	public void DemoInit() {
 		Deck.AddCard(new Strike());
-		Deck.AddCard(new Strike());
-		Deck.AddCard(new Strike());
-		Deck.AddCard(new Strike());
+		Deck.AddCard(new HorizonStrike());
 		Deck.AddCard(new ViciousVigor());
-		Deck.AddCard(new ViciousVigor());
-		Deck.AddCard(new Respite());
-		Deck.AddCard(new Respite());
 		Deck.AddCard(new Respite());
 
-		Shuffle(Deck);
+		//Shuffle(Deck);
 
 		DrawHand();
-	}
-
-	public bool CastCard(Card card, Character caster, Character target) {
-		var takenCard = card;// Hand.ConfirmExistsAndTake(card);
-		if(takenCard != null) {
-			caster.CastCard(card, target);
-			Discard.AddCard(takenCard);
-			return true;
-		}
-
-		return false;
 	}
 
 	public void SetMaxHandSize(int newSize) {
@@ -62,6 +46,16 @@ public class CardManager {
 			newSize = defaultMaxHandSize;
 		}
 		maxHandSize = newSize;
+	}
+
+	public bool CastCardFromHand(Card card) {
+		var takenCard = Hand.ConfirmExistsAndTake(card);
+		if(takenCard != null) {
+			Discard.AddCard(takenCard);
+			return true;
+		}
+
+		return false;
 	}
 
 	public void DrawHand() {

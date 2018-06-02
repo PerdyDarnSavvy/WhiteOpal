@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CardGame.Abstract;
 using CardGame.Interfaces;
 
@@ -10,7 +11,7 @@ namespace CardGame.Actions {
             this.RestoreAmount = amount;
         }
 
-        public void execute(Character target, Character source) {
+        public void execute(List<Character> targets, Character source) {
             Resource resource = source.GetResource();
             this.MaxAmount = resource.GetMaxAmount();
             this.CurrentAmount = resource.GetAmount();

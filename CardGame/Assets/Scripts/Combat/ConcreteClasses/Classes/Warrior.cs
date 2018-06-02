@@ -23,14 +23,14 @@ namespace CardGame.Classes {
 			return resources;
 		}
 
-		public override void CastCard(Card card, Character target) {
+		public override bool CanCastCard(Card card) {
+			return Stamina.CanCostBePaid(card.Cost);
+		}
+
+		public override void CastCard(Card card, List<Character> targets) {
 			UnityEngine.Debug.Log(this.Name + " casts " + card.Name + ", using " + card.Cost + " " + Stamina.Name);
 			if(Stamina.CanCostBePaid(card.Cost)) {
 				Stamina.PayCost(card.Cost);
-
-				foreach(var action in card.Actions) {
-					action.execute(target, this);
-				}
 			}
 		}
 	}

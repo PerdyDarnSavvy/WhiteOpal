@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using CardGame.Abstract;
 
 namespace CardGame.Interfaces {
     public interface iAction {
-        void execute(Character Target, Character Source);
+        void execute(List<Character> Targets, Character Source);
     }
 }

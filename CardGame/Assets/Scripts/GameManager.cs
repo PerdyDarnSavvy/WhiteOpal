@@ -34,7 +34,14 @@ public class GameManager : Singleton<GameManager> {
 	}
 	
 	public void CreateEnemies() {
-		enemies.Add(CreateEnemy());
+		var numberOfEnemies = 2;
+		var scaleFactor = (1f / (float)numberOfEnemies) + 0.25f;
+		for (int i = 0; i < numberOfEnemies; i++) {
+			var newEnemy = CreateEnemy();
+			newEnemy.transform.position = new Vector2(newEnemy.transform.position.x + (3f * i) - 2f, newEnemy.transform.position.y);
+			newEnemy.transform.localScale = new Vector3(newEnemy.transform.localScale.x * scaleFactor, newEnemy.transform.localScale.y * scaleFactor, newEnemy.transform.localScale.z);
+			enemies.Add(newEnemy);
+		}
 	}
 
 	public Actor CreateEnemy() {
