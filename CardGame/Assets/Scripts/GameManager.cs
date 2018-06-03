@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager> {
 
     [SerializeField] private CardUI CardUIPrefab;
     [SerializeField] private TargetableOverlay TargetableOverlayPrefab;
+	[SerializeField] private CardZoneUI CardZoneUIPrefab;
 	[SerializeField] private Actor playerSprite;
 	[SerializeField] private Actor enemySprite;
 	
@@ -49,7 +50,11 @@ public class GameManager : Singleton<GameManager> {
 	}
 
 	public void CreatePlayerController() {
-		playerController = new PlayerController(newPlayer, enemies, CardUIPrefab, TargetableOverlayPrefab);
+		playerController = new PlayerController(newPlayer, enemies, CardUIPrefab, CardZoneUIPrefab, TargetableOverlayPrefab);
+	}
+
+	public void DestroyCardObject(CardUI objectToDestroy) {
+		Destroy(objectToDestroy);
 	}
 }
 

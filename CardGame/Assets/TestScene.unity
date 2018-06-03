@@ -320,6 +320,8 @@ MonoBehaviour:
     type: 2}
   TargetableOverlayPrefab: {fileID: 114418172398996556, guid: 1f619cf296c7f58469b76438ed9b6f71,
     type: 2}
+  CardZoneUIPrefab: {fileID: 114918939365830838, guid: 8c47a057d04ad5c4eb731af761ddabaf,
+    type: 2}
   playerSprite: {fileID: 114910344557125752, guid: 2a73038d2c1371e439a66a5120bb67bf,
     type: 2}
   enemySprite: {fileID: 114066771046488278, guid: 365de4301f4b9b34a81e23748aea667c,

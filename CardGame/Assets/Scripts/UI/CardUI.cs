@@ -26,4 +26,8 @@ public class CardUI : MonoBehaviour {
 	public void OnClick() {
 		PlayerController.CardClicked(this);
 	}
+
+	public void DestroySelf() {
+		Destroy(gameObject);
+	}
 }

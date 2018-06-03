@@ -35,8 +35,17 @@ public class CardManager {
 		Deck.AddCard(new HorizonStrike());
 		Deck.AddCard(new ViciousVigor());
 		Deck.AddCard(new Respite());
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new HorizonStrike());
+		Deck.AddCard(new ViciousVigor());
+		Deck.AddCard(new Respite());
+		Deck.AddCard(new Strike());
+		Deck.AddCard(new HorizonStrike());
+		Deck.AddCard(new ViciousVigor());
+		Deck.AddCard(new Respite());
+		Discard.AddCard(new Strike());
 
-		//Shuffle(Deck);
+		Shuffle(Deck);
 
 		DrawHand();
 	}

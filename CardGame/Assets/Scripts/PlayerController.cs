@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using CardGame.Abstract;
 using CardGame.UI;
+using CardGame.Other;
 
 public enum PlayerSelectionState {
     SelectCard, SelectTarget, Disabled
@@ -12,19 +13,20 @@ public enum PlayerSelectionState {
 public class PlayerController {
 
     private CardUI CardUIPrefab;
+    private CardZoneUI CardZoneUIPrefab;
     private TargetableOverlay TargetableOverlayPrefab;
 
     private Actor playerActor { get; set; }
     private List<Actor> Enemies { get; set; }
 
     public PlayerSelectionState currentState { get; set; }
-    public Card currentCardSelected { get; set; }
+    public CardUI currentCardSelected { get; set; }
     public List<Actor> targetsSelected { get; set; }
 
-    public PlayerController(Actor playerActor, List<Actor> enemies, CardUI CardUIPrefab, TargetableOverlay TargetableOverlayPrefab) {
-        Debug.Log("PlayerController");
+    public PlayerController(Actor playerActor, List<Actor> enemies, CardUI CardUIPrefab, CardZoneUI CardZoneUIPrefab, TargetableOverlay TargetableOverlayPrefab) {
         this.playerActor = playerActor;
         this.CardUIPrefab = CardUIPrefab;
+        this.CardZoneUIPrefab = CardZoneUIPrefab;
         this.TargetableOverlayPrefab = TargetableOverlayPrefab;
         Enemies = enemies;
         CreatePlayerUI();
@@ -33,20 +35,17 @@ public class PlayerController {
     }
 
     public void CardClicked(CardUI cardUI) {
-        Debug.Log("CardClicked: " + cardUI.Card.Name);
         if (currentState == PlayerSelectionState.SelectCard) {
-            if (currentCardSelected == cardUI.Card) {
+            if (currentCardSelected == cardUI) {
                 currentCardSelected = null;
             } else {
-                currentCardSelected = cardUI.Card;
-                if(currentCardSelected.TargetsNeeded > 0) {
+                currentCardSelected = cardUI;
+                if(currentCardSelected.Card.TargetsNeeded > 0) {
                     currentState = PlayerSelectionState.SelectTarget;
-                } else if(currentCardSelected.TargetsNeeded == -1) {
+                } else if(currentCardSelected.Card.TargetsNeeded == -1) {
                     targetsSelected.AddRange(Enemies);
-                    Debug.Log("Card targets all enemies");
                     CastCard();
                 } else {
-                    Debug.Log("Card doesnt need a target");
                     CastCard();
                 }
             }
@@ -59,7 +58,7 @@ public class PlayerController {
                 targetsSelected.Remove(target);
             } else {
                 targetsSelected.Add(target);
-                if(targetsSelected.Count == currentCardSelected.TargetsNeeded) {
+                if(targetsSelected.Count == currentCardSelected.Card.TargetsNeeded) {
                 CastCard();
                 }
             }
@@ -67,24 +66,19 @@ public class PlayerController {
     }
 
     public void CastCard() {
-        Debug.Log("CastCard: " + currentCardSelected.Name);
-        Debug.Log("Targets: " + targetsSelected.Count);
-        bool canCastCard = playerActor.characterStats.CanCastCard(currentCardSelected);
+        bool canCastCard = playerActor.characterStats.CanCastCard(currentCardSelected.Card);
         if (canCastCard) {
-            Debug.Log("Card can be cast");
-            bool cardWasCast = ActionManager.Instance.CastCard(currentCardSelected, playerActor, targetsSelected.Select(x => x.characterStats).ToList());
-            playerActor.CardManager.CastCardFromHand(currentCardSelected);
+            bool cardWasCast = ActionManager.Instance.CastCard(currentCardSelected.Card, playerActor, targetsSelected.Select(x => x.characterStats).ToList());
 
             if (cardWasCast) {
-                Debug.Log("Card was cast");
+                playerActor.CardManager.CastCardFromHand(currentCardSelected.Card);
+                currentCardSelected.DestroySelf();
             } else {
-                Debug.Log("Card was unable to be cast");
             }
             currentCardSelected = null;
             targetsSelected = new List<Actor>();
             currentState = PlayerSelectionState.SelectCard;
         } else {
-            Debug.Log("Card was unable to be cast");
         }
     }
 
@@ -92,6 +86,8 @@ public class PlayerController {
         var globalCanvasTransform = GameManager.Instance.canvas.transform;
         CreatePlayerHand(globalCanvasTransform);
         CreateTargetOverlays(globalCanvasTransform);
+        CreateZoneUI(playerActor.CardManager.Deck, "Deck", globalCanvasTransform, false);
+        CreateZoneUI(playerActor.CardManager.Discard, "Discard", globalCanvasTransform, true);
     }
 
     private void CreatePlayerHand(Transform globalCanvasTransform) {
@@ -108,6 +104,15 @@ public class PlayerController {
         newCardUIinstance.Initialize(card, this);
         newCardUIinstance.transform.SetParent(globalCanvasTransform, false);
         newCardUIinstance.transform.position = new Vector2(globalCanvasTransform.localPosition.x + ((counter * 2.5f) - 4f), (globalCanvasTransform.localPosition.y -2.5f));
+    }
+
+    private CardZoneUI CreateZoneUI(CardZone zone, string name, Transform globalCanvasTransform, bool isRight) {
+        float direction = (isRight) ? 1f : -1f;
+        var newCardZoneUI = MonoBehaviour.Instantiate(CardZoneUIPrefab) as CardZoneUI;
+        newCardZoneUI.transform.SetParent(globalCanvasTransform, false);
+        newCardZoneUI.transform.position = new Vector2(globalCanvasTransform.localPosition.x + (8f * direction), (globalCanvasTransform.localPosition.y -2.5f));
+        newCardZoneUI.Initialize(zone, name);
+        return newCardZoneUI;
     }
 
     private void CreateTargetOverlays(Transform globalCanvasTransform) {

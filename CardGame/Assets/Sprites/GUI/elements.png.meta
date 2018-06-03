@@ -10,6 +10,8 @@ TextureImporter:
     21300006: HP_Bar
     21300008: Barman
     21300010: elements_1
+    21300012: Dock
+    21300014: Zone
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -174,6 +176,34 @@ TextureImporter:
         y: 601
         width: 172
         height: 255
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Dock
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 0
+        width: 790
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Zone
+      rect:
+        serializedVersion: 2
+        x: 2689
+        y: 1482
+        width: 138
+        height: 136
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
