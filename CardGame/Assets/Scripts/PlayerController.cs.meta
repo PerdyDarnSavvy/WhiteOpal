@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 4b091d936e3b289458d1ed90c623818d
-timeCreated: 1526080693
+guid: d403f9bdb140d70418eb6cc23b5b19ed
+timeCreated: 1527536068
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - HPBar: {fileID: 114228324264580616, guid: 923089304f780984387f10316afc2180, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

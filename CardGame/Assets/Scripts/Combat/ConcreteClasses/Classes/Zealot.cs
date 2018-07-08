@@ -21,15 +21,15 @@ namespace CardGame.Classes {
 			resources.Add(this.HP);
 			return resources;
 		}
+		
+		public override bool CanCastCard(Card card) {
+			return HP.CanCostBePaid(card.Cost);
+		}
 
-		public override void CastCard(Card card, Character target) {
+		public override void CastCard(Card card, List<Character> targets) {
 			UnityEngine.Debug.Log(this.Name + " casts " + card.Name + ", using " + card.Cost + " " + HP.Name);
-			if(HP.CanCostBePaid(card.Cost)) {
-			    HP.PayCost(card.Cost);
-
-				foreach(var action in card.Actions) {
-					action.execute(target, this);
-				}
+			if(CanCastCard(card)) {
+				HP.PayCost(card.Cost);
 			}
 		}
 	}

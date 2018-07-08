@@ -20,7 +20,7 @@ public class ResourceUI : MonoBehaviour {
 	}
 
 	public void updateValue() {
-		int newPercent = (int)(((float)currentResource.GetAmount() / (float)currentResource.GetMaxAmount()) * 100f);
+		int newPercent = (int)(currentResource.GetCurrentPercent() * 100f);
 		currentPercentScale.UpdateScale(newPercent);
 	}
 
