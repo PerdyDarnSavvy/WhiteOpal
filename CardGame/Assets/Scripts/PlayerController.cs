@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using CardGame.Abstract;
 using CardGame.UI;
 using CardGame.Other;
@@ -15,23 +16,28 @@ public class PlayerController {
     private CardUI CardUIPrefab;
     private CardZoneUI CardZoneUIPrefab;
     private TargetableOverlay TargetableOverlayPrefab;
+    private Button EndTurnPrefab;
 
     private Actor playerActor { get; set; }
     private List<Actor> Enemies { get; set; }
+    private List<CardUI> currentHand;
 
     public PlayerSelectionState currentState { get; set; }
     public CardUI currentCardSelected { get; set; }
     public List<Actor> targetsSelected { get; set; }
 
-    public PlayerController(Actor playerActor, List<Actor> enemies, CardUI CardUIPrefab, CardZoneUI CardZoneUIPrefab, TargetableOverlay TargetableOverlayPrefab) {
+    public PlayerController(Actor playerActor, List<Actor> enemies, CardUI CardUIPrefab, CardZoneUI CardZoneUIPrefab, TargetableOverlay TargetableOverlayPrefab, Button EndTurnPrefab) {
         this.playerActor = playerActor;
         this.CardUIPrefab = CardUIPrefab;
         this.CardZoneUIPrefab = CardZoneUIPrefab;
         this.TargetableOverlayPrefab = TargetableOverlayPrefab;
+        this.EndTurnPrefab = EndTurnPrefab;
         Enemies = enemies;
+        currentHand = new List<CardUI>();
         CreatePlayerUI();
         currentState = PlayerSelectionState.SelectCard;
         targetsSelected = new List<Actor>();
+        
     }
 
     public void CardClicked(CardUI cardUI) {
@@ -72,6 +78,7 @@ public class PlayerController {
 
             if (cardWasCast) {
                 playerActor.CardManager.CastCardFromHand(currentCardSelected.Card);
+                currentHand.Remove(currentCardSelected);
                 currentCardSelected.DestroySelf();
             } else {
             }
@@ -88,6 +95,7 @@ public class PlayerController {
         CreateTargetOverlays(globalCanvasTransform);
         CreateZoneUI(playerActor.CardManager.Deck, "Deck", globalCanvasTransform, false);
         CreateZoneUI(playerActor.CardManager.Discard, "Discard", globalCanvasTransform, true);
+        CreateEndTurnButton(globalCanvasTransform);
     }
 
     private void CreatePlayerHand(Transform globalCanvasTransform) {
@@ -99,11 +107,19 @@ public class PlayerController {
         }
     }
 
+    public void DestroyPlayerHand() {
+        foreach (var card in currentHand) {
+            card.DestroySelf();
+        }
+        currentHand = new List<CardUI>();
+    }
+
     private void CreateCardUI(Card card, Transform globalCanvasTransform, int counter) {
         var newCardUIinstance = MonoBehaviour.Instantiate(CardUIPrefab) as CardUI;
         newCardUIinstance.Initialize(card, this);
         newCardUIinstance.transform.SetParent(globalCanvasTransform, false);
         newCardUIinstance.transform.position = new Vector2(globalCanvasTransform.localPosition.x + ((counter * 2.5f) - 4f), (globalCanvasTransform.localPosition.y -2.5f));
+        currentHand.Add(newCardUIinstance);
     }
 
     private CardZoneUI CreateZoneUI(CardZone zone, string name, Transform globalCanvasTransform, bool isRight) {
@@ -128,4 +144,23 @@ public class PlayerController {
         newOverlay.transform.SetParent(globalCanvasTransform, false);
         newOverlay.transform.position = new Vector2(actor.transform.position.x, actor.transform.position.y);
     }
+
+    private void CreateEndTurnButton(Transform globalCanvasTransform) {
+        var newEndTurnButton = MonoBehaviour.Instantiate(EndTurnPrefab) as Button;
+        newEndTurnButton.transform.SetParent(globalCanvasTransform, false);
+        //newEndTurnButton.transform.position = new Vector2()
+    }
+
+    public void StartTurn() {
+		playerActor.CardManager.DrawHand();
+        CreatePlayerHand(GameManager.Instance.canvas.transform);
+		currentState = PlayerSelectionState.SelectCard;
+
+	}
+
+	public void EndTurn() {
+		playerActor.CardManager.DiscardHand();
+		DestroyPlayerHand();
+		currentState = PlayerSelectionState.Disabled;
+	}
 }
