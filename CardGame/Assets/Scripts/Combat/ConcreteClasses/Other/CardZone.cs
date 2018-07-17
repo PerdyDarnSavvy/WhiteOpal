@@ -40,13 +40,13 @@ namespace CardGame.Other {
         // Top
         public Card Top() {
             // Cards.Last() because List.Last() is last index
-            return Cards.Last();
+            return Cards.LastOrDefault();
         }
 
         // Bottom
         public Card Bottom() {
             // Cards.First() because List.First() is 0-th index
-            return Cards.First();
+            return Cards.FirstOrDefault();
         }
         
         public Card GetAtIndex(int index) {
@@ -94,8 +94,18 @@ namespace CardGame.Other {
         }
 
         private Card Take(Card card) {
-            RemoveCard(card);
-            return card;
+            if (card != null) {
+                RemoveCard(card);
+                return card;
+            }
+            return null;
+        }
+
+        public List<Card> TakeAll() {
+            List<Card> output = new List<Card>();
+            output.AddRange(Cards);
+            Cards = new List<Card>();
+            return output;
         }
 
         public void RemoveCard(Card card) {

@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField] private CardUI CardUIPrefab;
     [SerializeField] private TargetableOverlay TargetableOverlayPrefab;
 	[SerializeField] private CardZoneUI CardZoneUIPrefab;
+	[SerializeField] private Button EndTurnPrefab;
 	[SerializeField] private Actor playerSprite;
 	[SerializeField] private Actor enemySprite;
 	
@@ -25,9 +26,7 @@ public class GameManager : Singleton<GameManager> {
 		CreatePlayer();
 		CreateEnemies();
 		CreatePlayerController();
-	}
-
-	void Update () {
+		Debug.Log(TurnManager.Instance.isPlayerTurn);
 	}
 
 	public void CreatePlayer() {
@@ -45,12 +44,23 @@ public class GameManager : Singleton<GameManager> {
 		}
 	}
 
+	public void StartTurn() {
+		newPlayer.CardManager.DrawHand();
+		playerController.currentState = PlayerSelectionState.SelectCard;
+	}
+
+	public void EndTurn() {
+		newPlayer.CardManager.DiscardHand();
+		playerController.DestroyPlayerHand();
+		playerController.currentState = PlayerSelectionState.Disabled;
+	}
+
 	public Actor CreateEnemy() {
 		return Instantiate(enemySprite) as Actor;
 	}
 
 	public void CreatePlayerController() {
-		playerController = new PlayerController(newPlayer, enemies, CardUIPrefab, CardZoneUIPrefab, TargetableOverlayPrefab);
+		playerController = new PlayerController(newPlayer, enemies, CardUIPrefab, CardZoneUIPrefab, TargetableOverlayPrefab, EndTurnPrefab);
 	}
 
 	public void DestroyCardObject(CardUI objectToDestroy) {

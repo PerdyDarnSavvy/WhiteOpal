@@ -79,6 +79,10 @@ public class CardManager {
 
 	public void Draw() {
 		var cardToDraw = Deck.TakeTop();
+		if(cardToDraw == null){
+			RestockToDeck();
+			cardToDraw = Deck.TakeTop();
+		}
 		AddCard(cardToDraw);
 	}
 
@@ -97,6 +101,13 @@ public class CardManager {
 		var cardToDiscard = Hand.TakeRandom();
 		Discard.AddCard(cardToDiscard);
 	}
+
+	public void DiscardHand() {
+		var discardCards = Hand.TakeAll();
+		foreach (var cardToDiscard in discardCards) {
+			Discard.AddCard(cardToDiscard);
+		}
+	}
 	
 	public void Mill() {
 		var cardToMill = Deck.TakeTop();
@@ -108,5 +119,13 @@ public class CardManager {
 		if (cardToMill != null) {
 			Discard.AddCard(cardToMill);
 		}
+	}
+
+	public void RestockToDeck() {
+		var discardedCards = Discard.TakeAll();
+		foreach (var cardToMove in discardedCards){
+			Deck.AddCard(cardToMove);
+		}
+		Shuffle(Deck);
 	}
 }
