@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardGame.Abstract;
@@ -18,10 +19,15 @@ public class Actor : MonoBehaviour {
 	public Character characterStats { get; set; }
 	private List<ResourceUI> ourResources;
 	public CardManager CardManager;
+	public int ID;
 	//private List<> OtherBars { get; set; }
 
 	public Actor (ActorType thing) {
 		type = thing;
+	}
+
+	public void Initialize() {
+		ID = this.GetInstanceID();
 	}
 
 	void Awake () {

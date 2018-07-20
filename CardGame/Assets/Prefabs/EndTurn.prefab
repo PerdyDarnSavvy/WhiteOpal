@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114931192673679238}
   - component: {fileID: 114189573170406386}
   - component: {fileID: 222639862176052918}
-  - component: {fileID: 114552521623618964}
+  - component: {fileID: 114212958942210032}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114552521623618964}
+      - m_Target: {fileID: 114212958942210032}
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -132,7 +132,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114552521623618964
+--- !u!114 &114212958942210032
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1068715028694004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f0fef60c2a50a488f174f9b7468ca6, type: 3}
+  m_Script: {fileID: 11500000, guid: 517a62ce16079be4abea33a86dda3689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114931192673679238
