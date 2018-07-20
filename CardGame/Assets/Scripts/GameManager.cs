@@ -25,12 +25,13 @@ public class GameManager : Singleton<GameManager> {
 		enemies = new List<Actor>();
 		CreatePlayer();
 		CreateEnemies();
+		SetupTurnManager();
 		CreatePlayerController();
-		Debug.Log(TurnManager.Instance.isPlayerTurn);
 	}
 
 	public void CreatePlayer() {
 		newPlayer = Instantiate(playerSprite) as Actor;
+		newPlayer.Initialize();
 	}
 	
 	public void CreateEnemies() {
@@ -38,10 +39,15 @@ public class GameManager : Singleton<GameManager> {
 		var scaleFactor = (1f / (float)numberOfEnemies) + 0.25f;
 		for (int i = 0; i < numberOfEnemies; i++) {
 			var newEnemy = CreateEnemy();
+			newEnemy.Initialize();
 			newEnemy.transform.position = new Vector2(newEnemy.transform.position.x + (3f * i) - 2f, newEnemy.transform.position.y);
 			newEnemy.transform.localScale = new Vector3(newEnemy.transform.localScale.x * scaleFactor, newEnemy.transform.localScale.y * scaleFactor, newEnemy.transform.localScale.z);
 			enemies.Add(newEnemy);
 		}
+	}
+
+	public void SetupTurnManager() {
+		TurnManager.Instance.SetTurnList();
 	}
 
 	public void StartTurn() {
