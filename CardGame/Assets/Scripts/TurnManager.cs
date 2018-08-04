@@ -10,7 +10,8 @@ public class TurnManager : Singleton<TurnManager> {
 	private int turnTimer = 0;
 	public int[] TurnList;
 	public int currentTurn = 0;
-	public Boolean isInitialized = false;
+	public bool isInitialized = false;
+	private bool skipEnemy = false;
 
 	void Start() {
 	}
@@ -27,39 +28,31 @@ public class TurnManager : Singleton<TurnManager> {
 
 	public void SetTurnList(){
 		var listOfActorIDs = new List<int>();
-		listOfActorIDs.Add(GameManager.Instance.newPlayer.ID);
+		listOfActorIDs.Add(GameManager.Instance.Player.ID);
 		listOfActorIDs.AddRange(GameManager.Instance.enemies.Select(x => x.ID));
 		TurnList = listOfActorIDs.ToArray();
 		isInitialized = true;
-		Debug.Log(TurnList.Length);
-		Debug.Log("Made It!");
 	}	
 
 	private void FixedUpdate() {
-		if (isInitialized && !isPlayerTurn()) {
+		if (isInitialized && !isPlayerTurn() && skipEnemy) {
 			turnTimer++;
 			if (turnTimer >= 100) {
-				Debug.Log(TurnList);
 				PassTurn();
-				Debug.Log("Turn passed via timer");
 				turnTimer = 0;
 			}
 		}
 	}
 
-	public Boolean isPlayerTurn() {
-		
-		return TurnList[currentTurn] == GameManager.Instance.newPlayer.ID; 
+	public bool isPlayerTurn() {
+		return TurnList[currentTurn] == GameManager.Instance.Player.ID; 
 	}
 
 	public void OnClick() {
 		PassTurn();
 	}
 
-	private void PassTurn() {
-
-		Debug.Log(TurnList[currentTurn]);
-
+	public void PassTurn() {
 		if (isPlayerTurn()) {
 			GameManager.Instance.playerController.EndTurn();
 		} 
@@ -67,11 +60,24 @@ public class TurnManager : Singleton<TurnManager> {
 		currentTurn++;
 		if (currentTurn >= TurnList.Length){
 			currentTurn = 0;
-		}	
-		
+		}
+
+		StartTurn();
+	}
+
+	public void StartTurn() {
 		if (isPlayerTurn()) {
 			GameManager.Instance.playerController.StartTurn();
 		}
+		else {
+			var actingActor = GetActingActor();
+			if (actingActor != null && !skipEnemy) {
+				actingActor.TakeTurn();
+			}
+		}
 	}
 
+	private Actor GetActingActor() {
+		return GameManager.Instance.enemies.FirstOrDefault(x => x.ID == TurnList[currentTurn]);
+	}
 }

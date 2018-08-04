@@ -26,8 +26,6 @@ public class CardManager {
 		Deck = new CardZone();
 		Hand = new CardZone();
 		Discard = new CardZone();
-
-		DemoInit();
 	}
 
 	public void DemoInit() {
