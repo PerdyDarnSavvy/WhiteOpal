@@ -67,6 +67,10 @@ namespace CardGame.Other {
             Cards.Insert(index, card);
         }
 
+        public void AddCards(List<Card> cards) {
+            Cards.AddRange(cards);
+        }
+
         public Card TakeTop() {
             return Take(Top());
         }

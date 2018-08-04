@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f0fef60c2a50a488f174f9b7468ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TurnList: 
+  currentTurn: 0
+  isInitialized: 0
 --- !u!114 &1491125547
 MonoBehaviour:
   m_ObjectHideFlags: 0
